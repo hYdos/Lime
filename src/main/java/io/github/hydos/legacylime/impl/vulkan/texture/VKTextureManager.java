@@ -2,7 +2,7 @@ package io.github.hydos.legacylime.impl.vulkan.texture;
 
 import io.github.hydos.legacylime.core.math.CitrusMath;
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.elements.TexturedVulkanRenderObject;
 import io.github.hydos.legacylime.impl.vulkan.elements.VulkanRenderObject;
 import io.github.hydos.legacylime.impl.vulkan.lowlevel.VKBufferUtils;

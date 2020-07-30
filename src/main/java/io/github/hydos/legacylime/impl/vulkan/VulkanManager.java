@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan;
 
 import io.github.hydos.lime.resource.ResourceHandler;
-import io.github.hydos.legacylime.core.io.Window;
+import io.github.hydos.lime.other.Window;
 import io.github.hydos.legacylime.impl.vulkan.elements.VulkanRenderObject;
 import io.github.hydos.legacylime.impl.vulkan.model.VKBufferMesh;
 import io.github.hydos.legacylime.impl.vulkan.render.VKRenderManager;

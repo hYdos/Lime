@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.ubo;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.texture.CompiledTexture;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;

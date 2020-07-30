@@ -1,5 +1,6 @@
 package io.github.hydos.legacylime.impl.vulkan;
 
+import io.github.hydos.lime.VulkanError;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.VkApplicationInfo;

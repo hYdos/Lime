@@ -1,8 +1,8 @@
 package io.github.hydos.lime;
 
-import io.github.hydos.legacylime.core.io.Window;
-import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.other.Window;
+import io.github.hydos.lime.other.LowLevelLimeException;
+import io.github.hydos.lime.other.ValidationLayerManager;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.MemoryStack;
@@ -22,36 +22,46 @@ public class LimeManager {
     private final String internalName;
 
     private VkInstance vulkanInstance;
+    private ValidationLayerManager validationManager;
+    private final boolean useValidation;
+    private long windowVkSurface;
 
-    public LimeManager(int windowWidth, int windowHeight, int maxFps, String title, String internalName) {
+    public LimeManager(int windowWidth, int windowHeight, int maxFps, String title, String internalName, boolean debug) {
         Window.create(windowWidth, windowHeight, title, maxFps);
         this.title = title;
         this.internalName = internalName;
+        this.useValidation = debug;
     }
 
     /**
      * create the vulkan surface for the window
      */
-    private void createVulkanSurface(){
+    private void createVulkanSurface() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             LongBuffer pSurface = stack.longs(VK10.VK_NULL_HANDLE);
 
-            VulkanError.failIfError(GLFWVulkan.glfwCreateWindowSurface(Variables.instance, Window.getWindow(), null, pSurface));
-            Variables.surface = pSurface.get(0);
+            VulkanError.failIfError(GLFWVulkan.glfwCreateWindowSurface(vulkanInstance, Window.getWindow(), null, pSurface));
+            windowVkSurface = pSurface.get(0);
         }
     }
 
     /**
      * creates the vulkan instance and gives info on the application and engine running
      */
-    private void createVulkanInstance(){
+    private void createVulkanInstance() {
+        this.validationManager = new ValidationLayerManager(this, useValidation);
+
+        if (!validationManager.validationLayersSupported() && useValidation) {
+            throw new LowLevelLimeException("Validation was requested, but isn't supported on this machine.");
+        }
+
         try (MemoryStack stack = MemoryStack.stackPush()) {
             VkApplicationInfo info = VkApplicationInfo.callocStack()
                     .sType(VK10.VK_STRUCTURE_TYPE_APPLICATION_INFO)
                     .pApplicationName(stack.UTF8Safe(internalName))
-                    .applicationVersion(VK10.VK_MAKE_VERSION(1,0,0))
+                    .applicationVersion(VK10.VK_MAKE_VERSION(1, 0, 0))
                     .pEngineName(stack.UTF8Safe("Lime"))
-                    .engineVersion(VK10.VK_MAKE_VERSION(1,1,0))
+                    .engineVersion(VK10.VK_MAKE_VERSION(1, 1, 0))
                     .apiVersion(VK10.VK_API_VERSION_1_0);
 
             VkInstanceCreateInfo instanceCreateInfo = VkInstanceCreateInfo.callocStack()
@@ -73,13 +83,15 @@ public class LimeManager {
     /**
      * sets up core vulkan parts of the engine
      */
-    public void setupVulkan(){
+    public void setupVulkan() {
+        createVulkanInstance();
+        createVulkanSurface();
     }
 
     /**
      * always tidy up after yourself
      */
-    public void tidy(){
+    public void tidy() {
         VK10.vkDestroyInstance(vulkanInstance, null);
     }
 

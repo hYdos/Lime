@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.util;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.lowlevel.VKMemoryUtils;
 import io.github.hydos.legacylime.impl.vulkan.model.CommandBufferManager;
 import org.lwjgl.system.MemoryStack;

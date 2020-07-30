@@ -1,6 +1,6 @@
 package io.github.hydos.legacylime.core.player;
 
-import io.github.hydos.legacylime.core.io.Window;
+import io.github.hydos.lime.other.Window;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 

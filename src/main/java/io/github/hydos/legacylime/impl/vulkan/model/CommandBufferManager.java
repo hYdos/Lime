@@ -1,8 +1,8 @@
 package io.github.hydos.legacylime.impl.vulkan.model;
 
-import io.github.hydos.legacylime.core.io.Window;
+import io.github.hydos.lime.other.Window;
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.device.DeviceManager;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;

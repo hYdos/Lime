@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.device;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.legacylime.impl.vulkan.VulkanError;
+import io.github.hydos.lime.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.swapchain.SwapchainManager;
 import io.github.hydos.legacylime.impl.vulkan.util.Utils;
 import org.lwjgl.PointerBuffer;
