@@ -15,7 +15,7 @@ public interface Resource {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         InputStream inputStream = openStream();
 
-        byte[] buffer = new byte[8192];
+        byte[] buffer = new byte[7200000];
         int length;
 
         while ((length = inputStream.read(buffer)) > 0) {
