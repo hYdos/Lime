@@ -110,7 +110,7 @@ public class VulkanDevice {
         return indices.isComplete();
     }
 
-    private QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physicalDevice) {
+    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physicalDevice) {
         QueueFamilyIndices indices = new QueueFamilyIndices();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer queueFamilyCount = stack.ints(0);
@@ -145,6 +145,14 @@ public class VulkanDevice {
         PointerBuffer buffer = stack.mallocPointer(list.size());
         list.forEach(buffer::put);
         return buffer.rewind();
+    }
+
+    public VkPhysicalDevice getPhysicalDevice() {
+        return physicalDevice;
+    }
+
+    public VkDevice getLogicalDevice() {
+        return logicalDevice;
     }
 
     /**

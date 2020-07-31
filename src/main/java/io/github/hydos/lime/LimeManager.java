@@ -16,6 +16,9 @@ import java.nio.LongBuffer;
  */
 public class LimeManager {
 
+    public static final int UINT32_MAX = 0xFFFFFFFF;
+    public static final int MAX_DESCRIPTOR_COUNT = 2048;
+
     private VkQueue graphicsQueue;
     private VkQueue presentQueue;
 
@@ -122,5 +125,9 @@ public class LimeManager {
 
     public void setPresentQueue(VkQueue vkQueue) {
         this.presentQueue = vkQueue;
+    }
+
+    public VulkanDevice getDevice() {
+        return device;
     }
 }

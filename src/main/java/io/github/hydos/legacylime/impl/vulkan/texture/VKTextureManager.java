@@ -1,6 +1,6 @@
 package io.github.hydos.legacylime.impl.vulkan.texture;
 
-import io.github.hydos.legacylime.core.math.CitrusMath;
+import io.github.hydos.lime.other.MathHelper;
 import io.github.hydos.legacylime.impl.vulkan.Variables;
 import io.github.hydos.lime.other.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.elements.TexturedVulkanRenderObject;
@@ -46,7 +46,7 @@ public class VKTextureManager {
 
             long imageSize = pWidth.get(0) * pHeight.get(0) * 4; // pChannels.get(0);
 
-            compiledTexture.mipLevels = (int) Math.floor(CitrusMath.log2(Math.max(pWidth.get(0), pHeight.get(0)))) + 1;
+            compiledTexture.mipLevels = (int) Math.floor(MathHelper.log2(Math.max(pWidth.get(0), pHeight.get(0)))) + 1;
 
             if (pixels == null) {
                 throw new RuntimeException("Failed to load texture");
@@ -172,7 +172,7 @@ public class VKTextureManager {
 
             long imageSize = pWidth.get(0) * pHeight.get(0) * 4; // pChannels.get(0);
 
-            compiledTexture.mipLevels = (int) Math.floor(CitrusMath.log2(Math.max(pWidth.get(0), pHeight.get(0)))) + 1;
+            compiledTexture.mipLevels = (int) Math.floor(MathHelper.log2(Math.max(pWidth.get(0), pHeight.get(0)))) + 1;
 
             if (pixels == null) {
                 throw new RuntimeException("Failed to load texture");

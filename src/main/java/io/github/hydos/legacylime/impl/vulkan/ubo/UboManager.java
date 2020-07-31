@@ -1,6 +1,6 @@
 package io.github.hydos.legacylime.impl.vulkan.ubo;
 
-import io.github.hydos.legacylime.core.math.CitrusMath;
+import io.github.hydos.lime.other.MathHelper;
 import io.github.hydos.legacylime.core.player.PlayerController;
 import io.github.hydos.legacylime.impl.vulkan.Variables;
 import io.github.hydos.legacylime.impl.vulkan.VulkanManager;
@@ -64,11 +64,11 @@ public class UboManager {
             GenericUbo ubo = new GenericUbo(10);
 
             for (VulkanRenderObject object : VulkanManager.getInstance().entityRenderer.entities) {
-                ubo.model[object.id] = CitrusMath.createTransformationMatrix(object.getPosition(), object.getRotX(), object.getRotY(), object.getRotZ(), object.getScale());
+                ubo.model[object.id] = MathHelper.createTransformationMatrix(object.getPosition(), object.getRotX(), object.getRotY(), object.getRotZ(), object.getScale());
             }
 
             //Constant stuff generally goes here. later on view matrix will use the Math class one.
-            ubo.view = CitrusMath.calcView(PlayerController.position, PlayerController.rotation);
+            ubo.view = MathHelper.calcView(PlayerController.position, PlayerController.rotation);
             ubo.proj.perspective((float) java.lang.Math.toRadians(45), (float) Variables.swapChainExtent.width() / (float) Variables.swapChainExtent.height(), 0.1f, 1000.0f);
             ubo.proj.m11(ubo.proj.m11() * -1);
 
