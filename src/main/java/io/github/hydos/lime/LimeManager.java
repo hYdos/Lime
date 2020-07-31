@@ -7,10 +7,7 @@ import io.github.hydos.lime.other.ValidationLayerManager;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.MemoryStack;
-import org.lwjgl.vulkan.VK10;
-import org.lwjgl.vulkan.VkApplicationInfo;
-import org.lwjgl.vulkan.VkInstance;
-import org.lwjgl.vulkan.VkInstanceCreateInfo;
+import org.lwjgl.vulkan.*;
 
 import java.nio.LongBuffer;
 
@@ -19,11 +16,15 @@ import java.nio.LongBuffer;
  */
 public class LimeManager {
 
+    private VkQueue graphicsQueue;
+    private VkQueue presentQueue;
+
+    private VulkanDevice device;
+
     private final String title;
     private final String internalName;
 
     private VkInstance vulkanInstance;
-    private ValidationLayerManager validationManager;
     private final boolean useValidation;
     private long windowVkSurface;
 
@@ -50,7 +51,7 @@ public class LimeManager {
      * creates the vulkan instance and gives info on the application and engine running
      */
     private void createVulkanInstance() {
-        this.validationManager = new ValidationLayerManager(this, useValidation);
+        ValidationLayerManager validationManager = new ValidationLayerManager(this, useValidation);
 
         if (!validationManager.validationLayersSupported() && useValidation) {
             throw new LowLevelLimeException("Validation was requested, but isn't supported on this machine.");
@@ -76,7 +77,7 @@ public class LimeManager {
             this.vulkanInstance = new VkInstance(instancePointer.get(0), instanceCreateInfo);
         }
 
-        this.validationManager.setup();
+        validationManager.setup();
     }
 
     private PointerBuffer getRequiredExtensions() {
@@ -88,6 +89,7 @@ public class LimeManager {
      */
     public void setupVulkan() {
         createVulkanInstance();
+        this.device = new VulkanDevice(this);
         createVulkanSurface();
     }
 
@@ -108,5 +110,17 @@ public class LimeManager {
 
     public VkInstance getVulkanInstance() {
         return vulkanInstance;
+    }
+
+    public long getVulkanSurface() {
+        return windowVkSurface;
+    }
+
+    public void setGraphicsQueue(VkQueue vkQueue) {
+        this.graphicsQueue = vkQueue;
+    }
+
+    public void setPresentQueue(VkQueue vkQueue) {
+        this.presentQueue = vkQueue;
     }
 }
