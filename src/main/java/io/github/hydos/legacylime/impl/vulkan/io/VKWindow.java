@@ -2,7 +2,7 @@ package io.github.hydos.legacylime.impl.vulkan.io;
 
 import io.github.hydos.lime.other.Window;
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.lime.VulkanError;
+import io.github.hydos.lime.other.VulkanError;
 import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.MemoryStack;
 

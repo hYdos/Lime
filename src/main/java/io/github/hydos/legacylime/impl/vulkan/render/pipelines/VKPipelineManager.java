@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.render.pipelines;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.lime.VulkanError;
+import io.github.hydos.lime.other.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.model.VKVertex;
 import io.github.hydos.legacylime.impl.vulkan.shaders.VKShaderManager;
 import io.github.hydos.legacylime.impl.vulkan.shaders.VKShaderUtils;

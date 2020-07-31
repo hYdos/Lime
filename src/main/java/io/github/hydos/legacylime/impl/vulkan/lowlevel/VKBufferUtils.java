@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.lowlevel;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.lime.VulkanError;
+import io.github.hydos.lime.other.VulkanError;
 import io.github.hydos.legacylime.impl.vulkan.model.CommandBufferManager;
 import io.github.hydos.legacylime.impl.vulkan.model.SimpleVKBufferMesh;
 import io.github.hydos.legacylime.impl.vulkan.model.VKBufferMesh;

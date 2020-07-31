@@ -1,5 +1,6 @@
 package io.github.hydos.lime;
 
+import io.github.hydos.lime.other.VulkanError;
 import io.github.hydos.lime.other.Window;
 import io.github.hydos.lime.other.LowLevelLimeException;
 import io.github.hydos.lime.other.ValidationLayerManager;
@@ -74,6 +75,8 @@ public class LimeManager {
             VulkanError.failIfError(VK10.vkCreateInstance(instanceCreateInfo, null, instancePointer));
             this.vulkanInstance = new VkInstance(instancePointer.get(0), instanceCreateInfo);
         }
+
+        this.validationManager.setup();
     }
 
     private PointerBuffer getRequiredExtensions() {

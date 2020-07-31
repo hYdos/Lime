@@ -1,7 +1,7 @@
 package io.github.hydos.legacylime.impl.vulkan.shaders;
 
 import io.github.hydos.legacylime.impl.vulkan.Variables;
-import io.github.hydos.lime.VulkanError;
+import io.github.hydos.lime.other.VulkanError;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.VK10;
 import org.lwjgl.vulkan.VkShaderModuleCreateInfo;

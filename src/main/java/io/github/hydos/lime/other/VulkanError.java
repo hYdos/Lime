@@ -1,4 +1,4 @@
-package io.github.hydos.lime;
+package io.github.hydos.lime.other;
 
 import org.lwjgl.vulkan.VK10;
 import org.lwjgl.vulkan.VK11;
