@@ -7,7 +7,7 @@ use vulkano::format::Format;
 use vulkano::framebuffer::{Framebuffer, FramebufferAbstract, RenderPassAbstract, Subpass};
 use vulkano::image::attachment::AttachmentImage;
 use vulkano::image::{ImageUsage, SwapchainImage};
-use vulkano::instance::Instance;
+use vulkano::instance::{Instance, InstanceExtensions};
 use vulkano::instance::PhysicalDevice;
 use vulkano::pipeline::vertex::{TwoBuffersDefinition};
 use vulkano::pipeline::viewport::Viewport;
@@ -35,9 +35,11 @@ use crate::core::util::{VERTICES, NORMALS, INDICES};
 use crate::core::constants::{DEBUG};
 use crate::core::shaders::{vertex_shader, fragment_shader};
 
-pub(crate) fn deprecated(){
-    let required_extensions = vulkano_win::required_extensions();
-    let instance = Instance::new(None, &required_extensions, None).unwrap();
+struct EngineInfo {
+    vulkano_instance: Instance
+}
+
+fn create_devices<'a>(instance: Arc<Instance>) -> PhysicalDevice<'a> {
     let physical = PhysicalDevice::enumerate(&instance).next().unwrap();
     if DEBUG {
         println!(
@@ -46,14 +48,21 @@ pub(crate) fn deprecated(){
             physical.ty()
         );
     }
+    return physical;
+}
+
+pub fn init_engine(){
+    let required_extensions = vulkano_win::required_extensions();
+    let vulkano_instance = Instance::new(None, &required_extensions, None).unwrap();
+    let physical_device = create_devices(vulkano_instance);
 
     let event_loop = EventLoop::new();
     let surface = WindowBuilder::new()
-        .build_vk_surface(&event_loop, instance.clone())
+        .build_vk_surface(&event_loop, vulkano_instance.clone())
         .unwrap();
     let dimensions: [u32; 2] = surface.window().inner_size().into();
 
-    let queue_family = physical
+    let queue_family = physical_device
         .queue_families()
         .find(|&q| q.supports_graphics() && surface.is_supported(q).unwrap_or(false))
         .unwrap();
@@ -64,8 +73,8 @@ pub(crate) fn deprecated(){
     };
 
     let (device, mut queues) = Device::new(
-        physical,
-        physical.supported_features(),
+        physical_device,
+        physical_device.supported_features(),
         &device_ext,
         [(queue_family, 0.5)].iter().cloned(),
     )
@@ -74,7 +83,7 @@ pub(crate) fn deprecated(){
     let queue = queues.next().unwrap();
 
     let (mut swapchain, images) = {
-        let capabilities = surface.capabilities(physical).unwrap();
+        let capabilities = surface.capabilities(physical_device).unwrap();
         let format = capabilities.supported_formats[0].0;
         let alpha = capabilities.supported_composite_alpha.iter().next().unwrap();
 

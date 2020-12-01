@@ -1,7 +1,7 @@
 mod core;
 
-use crate::core::citrus::{deprecated};
+use crate::core::citrus::{init_engine};
 
 fn main() {
-    deprecated();
+    init_engine();
 }
